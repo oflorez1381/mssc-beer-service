@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -50,7 +51,20 @@ class BeerControllerTest {
     @Test
     void getBeerById() throws Exception {
 
-        given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
+        given(beerRepository.findById(any()))
+                .willReturn(Optional.of(
+                        Beer.builder()
+                                .name("Mango Bobs")
+                                .style("IPA")
+                                .quantityToBrew(200)
+                                .minOnHand(12)
+                                .upc(337010000001L)
+                                .price(new BigDecimal("12.95"))
+                                .build()
+                        )
+                );
+
+        ConstrainedFields fields = new ConstrainedFields(BeerDTO.class);
 
         mockMvc.perform(get("/api/v1/beer/{id}", UUID.randomUUID().toString())
                 .param("iscold", "yes")
@@ -64,15 +78,15 @@ class BeerControllerTest {
                                 parameterWithName("iscold").description("Is Beer Cold query param")
                         ),
                         responseFields(
-                                fieldWithPath("id").description("Id of Beer"),
-                                fieldWithPath("version").description("Version number"),
-                                fieldWithPath("createdDate").description("Date Created"),
-                                fieldWithPath("lastModifiedDate").description("Date Updated"),
-                                fieldWithPath("name").description("Beer Name"),
-                                fieldWithPath("style").description("Beer Style"),
-                                fieldWithPath("upc").description("UPC of Beer"),
-                                fieldWithPath("price").description("Price"),
-                                fieldWithPath("quantityOnHand").description("Quantity On hand")
+                                fields.withPath("id").description("Id of Beer").type(UUID.class),
+                                fields.withPath("version").description("Version number"),
+                                fields.withPath("createdDate").description("Date Created").type(OffsetDateTime.class),
+                                fields.withPath("lastModifiedDate").description("Date Updated").type(OffsetDateTime.class),
+                                fields.withPath("name").description("Beer Name"),
+                                fields.withPath("style").description("Beer Style"),
+                                fields.withPath("upc").description("UPC of Beer"),
+                                fields.withPath("price").description("Price"),
+                                fields.withPath("quantityOnHand").description("Quantity On hand")
                         )
                 ));
     }
