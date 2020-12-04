@@ -1,4 +1,4 @@
-= SFG Brewery Order Service Docs
+= SFG Beer Service Docs
 Oscar Florez;
 :doctype: book
 :icons: font
@@ -6,7 +6,7 @@ Oscar Florez;
 
 Sample application demonstrating how to use Spring REST Docs with JUnit 5.
 
-`BeerOrderControllerTest` makes a call to a very simple service and produces three
+`BeerControllerTest` makes a call to a very simple service and produces three
 documentation snippets.
 
 One showing how to make a request using cURL:
