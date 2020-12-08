@@ -1,8 +1,10 @@
 package odfd.com.msscbeerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import odfd.com.msscbeerservice.bootstrap.BeerLoader;
 import odfd.com.msscbeerservice.domain.Beer;
 import odfd.com.msscbeerservice.repositories.BeerRepository;
+import odfd.com.msscbeerservice.services.BeerService;
 import odfd.com.msscbeerservice.web.model.BeerDTO;
 import odfd.com.msscbeerservice.web.model.BeerStyle;
 import org.junit.jupiter.api.Test;
@@ -46,23 +48,12 @@ class BeerControllerTest {
     ObjectMapper objectMapper;
 
     @MockBean
-    BeerRepository beerRepository;
+    BeerService beerService;
 
     @Test
     void getBeerById() throws Exception {
 
-        given(beerRepository.findById(any()))
-                .willReturn(Optional.of(
-                        Beer.builder()
-                                .name("Mango Bobs")
-                                .style("IPA")
-                                .quantityToBrew(200)
-                                .minOnHand(12)
-                                .upc(337010000001L)
-                                .price(new BigDecimal("12.95"))
-                                .build()
-                        )
-                );
+        given(beerService.getById(any())).willReturn(getValidBeerDTO());
 
         ConstrainedFields fields = new ConstrainedFields(BeerDTO.class);
 
@@ -98,6 +89,8 @@ class BeerControllerTest {
         String beerToJson = objectMapper.writeValueAsString(beer);
         ConstrainedFields fields = new ConstrainedFields(BeerDTO.class);
 
+        given(beerService.saveNewBeer(any())).willReturn(getValidBeerDTO());
+
         mockMvc.perform(post("/api/v1/beer")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerToJson))
@@ -119,7 +112,7 @@ class BeerControllerTest {
 
     @Test
     void updateBeerById() throws Exception {
-
+        given(beerService.updateBeer(any(), any())).willReturn(getValidBeerDTO());
         BeerDTO beer = getValidBeerDTO();
         String beerToJson = objectMapper.writeValueAsString(beer);
 
@@ -134,7 +127,7 @@ class BeerControllerTest {
                 .name("Beer")
                 .style(BeerStyle.ALE)
                 .price(new BigDecimal(2.99))
-                .upc(123L)
+                .upc(BeerLoader.BEER_1_UPC)
                 .build();
     }
 
