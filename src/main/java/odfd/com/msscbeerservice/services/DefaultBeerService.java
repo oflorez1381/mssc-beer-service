@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.UUID;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -24,10 +25,18 @@ public class DefaultBeerService implements BeerService {
     private final BeerMapper beerMapper;
 
     @Override
-    public BeerDTO getById(UUID id) {
-        return beerMapper.beerToBeerDTO(
-                beerRepository.findById(id).orElseThrow(NotFoundException::new)
-        );
+    public BeerDTO getById(UUID id, Boolean showInventoryOnHand) {
+
+        Function<Beer, BeerDTO> mappingFunction = beerMapper::beerToBeerDTO;
+
+        if (showInventoryOnHand == null) {
+            showInventoryOnHand = false;
+        }
+
+        if (showInventoryOnHand) {
+            mappingFunction = beerMapper::beerToBeerDTOWithInventory;
+        }
+        return mappingFunction.apply(beerRepository.findById(id).orElseThrow(NotFoundException::new));
     }
 
     @Override
@@ -48,9 +57,13 @@ public class DefaultBeerService implements BeerService {
     }
 
     @Override
-    public BeerPagedList listBeers(String name, BeerStyle style, PageRequest pageRequest) {
+    public BeerPagedList listBeers(String name, BeerStyle style, PageRequest pageRequest, Boolean showInventoryOnHand) {
         BeerPagedList beerPagedList;
         Page<Beer> beerPage;
+
+        if (showInventoryOnHand == null) {
+            showInventoryOnHand = false;
+        }
 
         if (!StringUtils.isEmpty(name) && !StringUtils.isEmpty(style)) {
             //search both
@@ -65,10 +78,16 @@ public class DefaultBeerService implements BeerService {
             beerPage = beerRepository.findAll(pageRequest);
         }
 
+        Function<Beer, BeerDTO> mappingFunction = beerMapper::beerToBeerDTO;
+
+        if (showInventoryOnHand) {
+            mappingFunction = beerMapper::beerToBeerDTOWithInventory;
+        }
+
         beerPagedList = new BeerPagedList(beerPage
                 .getContent()
                 .stream()
-                .map(beerMapper::beerToBeerDTO)
+                .map(mappingFunction)
                 .collect(Collectors.toList()),
                 PageRequest
                         .of(beerPage.getPageable().getPageNumber(),

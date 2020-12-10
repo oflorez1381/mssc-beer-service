@@ -2,8 +2,6 @@ package odfd.com.msscbeerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import odfd.com.msscbeerservice.bootstrap.BeerLoader;
-import odfd.com.msscbeerservice.domain.Beer;
-import odfd.com.msscbeerservice.repositories.BeerRepository;
 import odfd.com.msscbeerservice.services.BeerService;
 import odfd.com.msscbeerservice.web.model.BeerDTO;
 import odfd.com.msscbeerservice.web.model.BeerStyle;
@@ -22,10 +20,10 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.BDDMockito.given;
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -53,7 +51,7 @@ class BeerControllerTest {
     @Test
     void getBeerById() throws Exception {
 
-        given(beerService.getById(any())).willReturn(getValidBeerDTO());
+        given(beerService.getById(any(), anyBoolean())).willReturn(getValidBeerDTO());
 
         ConstrainedFields fields = new ConstrainedFields(BeerDTO.class);
 
