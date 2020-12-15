@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-//@Component
+@Component
 public final class BeerLoader implements CommandLineRunner {
 
     public static final String BEER_1_UPC = "0631234200036";
@@ -26,7 +26,9 @@ public final class BeerLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        loadBeerObjects();
+        if (beerRepository.count() == 0) {
+            loadBeerObjects();
+        }
     }
 
     private void loadBeerObjects() {
