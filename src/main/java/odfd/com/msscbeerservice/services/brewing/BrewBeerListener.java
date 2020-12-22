@@ -12,11 +12,11 @@ import odfd.com.msscbeerservice.repositories.BeerRepository;
 import odfd.com.msscbeerservice.web.model.BeerDTO;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
-@Data
-@Builder
 @Slf4j
+@Service
 public class BrewBeerListener {
 
     private final BeerRepository beerRepository;
