@@ -2,9 +2,9 @@ package odfd.com.msscbeerservice.services.brewing;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import odfd.com.common.events.BrewBeerEvent;
 import odfd.com.msscbeerservice.config.JmsConfig;
 import odfd.com.msscbeerservice.domain.Beer;
-import odfd.com.msscbeerservice.events.BrewBeerEvent;
 import odfd.com.msscbeerservice.repositories.BeerRepository;
 import odfd.com.msscbeerservice.services.inventory.BeerInventoryService;
 import odfd.com.msscbeerservice.web.mappers.BeerMapper;

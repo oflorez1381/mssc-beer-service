@@ -9,12 +9,12 @@ import odfd.com.msscbeerservice.web.mappers.BeerMapper;
 import odfd.com.msscbeerservice.web.model.BeerDTO;
 import odfd.com.msscbeerservice.web.model.BeerPagedList;
 import odfd.com.msscbeerservice.web.model.BeerStyle;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import org.springframework.cache.annotation.Cacheable;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;

@@ -1,13 +1,11 @@
 package odfd.com.msscbeerservice.services.brewing;
 
-import lombok.Builder;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import odfd.com.common.events.BrewBeerEvent;
+import odfd.com.common.events.NewInventoryEvent;
 import odfd.com.msscbeerservice.config.JmsConfig;
 import odfd.com.msscbeerservice.domain.Beer;
-import odfd.com.msscbeerservice.events.BrewBeerEvent;
-import odfd.com.msscbeerservice.events.NewInventoryEvent;
 import odfd.com.msscbeerservice.repositories.BeerRepository;
 import odfd.com.msscbeerservice.web.model.BeerDTO;
 import org.springframework.jms.annotation.JmsListener;
