@@ -4,7 +4,7 @@ import odfd.com.msscbeerservice.web.model.BeerDTO;
 
 public class NewInventoryEvent extends BeerEvent{
 
-    NewInventoryEvent(BeerDTO beerDTO) {
+    public NewInventoryEvent(BeerDTO beerDTO) {
         super(beerDTO);
     }
 }
