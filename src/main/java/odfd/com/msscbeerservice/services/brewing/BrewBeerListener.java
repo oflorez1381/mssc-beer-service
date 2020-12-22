@@ -13,6 +13,7 @@ import odfd.com.msscbeerservice.web.model.BeerDTO;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -22,6 +23,7 @@ public class BrewBeerListener {
     private final BeerRepository beerRepository;
     private final JmsTemplate jmsTemplate;
 
+    @Transactional
     @JmsListener(destination = JmsConfig.NEW_INVENTORY_QUEUE)
     public void listen(BrewBeerEvent event) {
 
