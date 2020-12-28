@@ -1,7 +1,7 @@
 package odfd.com.msscbeerservice.repositories;
 
 import odfd.com.msscbeerservice.domain.Beer;
-import odfd.com.msscbeerservice.web.model.BeerStyle;
+import odfd.com.brewery.model.BeerStyle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

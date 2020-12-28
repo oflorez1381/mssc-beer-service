@@ -1,8 +1,8 @@
 package odfd.com.msscbeerservice.services;
 
-import odfd.com.msscbeerservice.web.model.BeerDTO;
-import odfd.com.msscbeerservice.web.model.BeerPagedList;
-import odfd.com.msscbeerservice.web.model.BeerStyle;
+import odfd.com.brewery.model.BeerDTO;
+import odfd.com.brewery.model.BeerPagedList;
+import odfd.com.brewery.model.BeerStyle;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.UUID;

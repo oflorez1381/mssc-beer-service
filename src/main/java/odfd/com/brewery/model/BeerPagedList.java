@@ -1,4 +1,4 @@
-package odfd.com.msscbeerservice.web.model;
+package odfd.com.brewery.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,6 +1,6 @@
-package odfd.com.common.events;
+package odfd.com.brewery.model.events;
 
-import odfd.com.msscbeerservice.web.model.BeerDTO;
+import odfd.com.brewery.model.BeerDTO;
 
 public class NewInventoryEvent extends BeerEvent{
 

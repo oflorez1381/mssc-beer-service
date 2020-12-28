@@ -1,4 +1,4 @@
-package odfd.com.msscbeerservice.web.model;
+package odfd.com.brewery.model;
 
 public enum BeerStyle {
     LAGER, PILSNER, STOUT, GOSE, PORTER, ALE, WHEAT, IPA, PALE_ALE, SAISON

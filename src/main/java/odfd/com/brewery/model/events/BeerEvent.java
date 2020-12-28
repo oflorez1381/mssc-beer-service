@@ -1,9 +1,9 @@
-package odfd.com.common.events;
+package odfd.com.brewery.model.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import odfd.com.msscbeerservice.web.model.BeerDTO;
+import odfd.com.brewery.model.BeerDTO;
 
 import java.io.Serializable;
 
