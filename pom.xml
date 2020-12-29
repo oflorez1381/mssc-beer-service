@@ -16,7 +16,7 @@
 
 	<groupId>odfd.com</groupId>
 	<artifactId>mssc-beer-service</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.2</version>
 	<name>mssc-beer-service</name>
 	<description>MSSC Beer Service</description>
 
