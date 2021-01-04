@@ -20,6 +20,10 @@
 	<name>mssc-beer-service</name>
 	<description>MSSC Beer Service</description>
 
+	<properties>
+		<spring-cloud.version>2020.0.0</spring-cloud.version>
+	</properties>
+
 	<dependencies>
 		<!--            <dependency>-->
 		<!--                <groupId>javax.xml.bind</groupId>-->
@@ -58,11 +62,26 @@
 			<artifactId>ehcache</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.restdocs</groupId>
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<build>
 		<plugins>
 			<plugin>
