@@ -2,6 +2,7 @@ package odfd.com.msscbeerservice.services.inventory;
 
 import lombok.extern.slf4j.Slf4j;
 import odfd.com.msscbeerservice.services.inventory.model.BeerInventoryDTO;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Profile;
@@ -17,7 +18,7 @@ import java.util.UUID;
 
 @Slf4j
 @Profile("!local-discovery")
-@ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = true)
 @Component
 public class BeerInventoryServiceRestTemplate implements BeerInventoryService {
 
@@ -30,8 +31,12 @@ public class BeerInventoryServiceRestTemplate implements BeerInventoryService {
         this.beerInventoryServiceHost = beerInventoryServiceHost;
     }
 
-    public BeerInventoryServiceRestTemplate(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
+    public BeerInventoryServiceRestTemplate(RestTemplateBuilder restTemplateBuilder,
+                                            @Value("${sfg.brewery.inventory-user}") String inventoryUser,
+                                            @Value("${sfg.brewery.inventory-password}")String inventoryPassword) {
+        this.restTemplate = restTemplateBuilder
+                .basicAuthentication(inventoryUser, inventoryPassword)
+                .build();
     }
 
     @Override
